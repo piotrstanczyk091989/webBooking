@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["menu.equipment.list"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="listEquipmentForm">
+            <h:messages for="listEquipment" />
+            <h:dataTable id="listEquipment" var="row" value="#{listEquipmentsWithEquipmentComponentPageBean.equipmentsWithEquipmentComponentDataModel}" headerClass="table_header" rowClasses="row_odd,row_even">
+
+                <h:column id="floor">
+                    <f:facet name="header">${msg['lab.floor']}</f:facet>
+                    <h:outputText value="#{row.lab.floor}" />
+                </h:column>
+                <h:column id="labNumber">
+                    <f:facet name="header">${msg['lab.number']}</f:facet>
+                    <h:outputText value="#{row.lab.number}" />
+                </h:column>
+                <h:column id="number">
+                    <f:facet name="header">${msg['equipment.stationNumber']}</f:facet>
+                    <h:outputText value="#{row.stationNumber}" />
+                </h:column>
+                <h:column id="type">
+                    <f:facet name="header">${msg['equipment.stationType']}</f:facet>
+                    <h:outputText value="#{row.stationType}" />
+                </h:column>
+
+
+                <h:column id="state">
+                    <f:facet name="header">${msg['equipment.state']}</f:facet>
+                    <h:panelGrid columns="1"> 
+                        <h:selectBooleanCheckbox id="active" value="#{row.conditionEquipment}" disabled="true"/>    
+                        <h:outputLabel for="active" value="${msg['account.active']}" />    
+                    </h:panelGrid>
+                </h:column>
+
+            </h:dataTable>
+            <br />
+            <h:commandButton value="#{msg['action.back']}" action="listEquipmentComponents" immediate="true" />     
+        </h:form>
+    </ui:define>
+
+</ui:composition>

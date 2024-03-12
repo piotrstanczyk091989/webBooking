@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <h:form id="menu">
+        <ul>
+            <li><h:outputLink value="../main/index.xhtml" >${msg["main.page"]}</h:outputLink></li>
+            <li><h:outputLink value="../account/rejestrujUzytkownika.xhtml" >${msg["menu.register"]}</h:outputLink></li>
+            <f:subview id="konto" rendered="#{request.isUserInRole('Administrator')}">
+                <li>${msg["menu.accounts"]}</li>
+                <ul>
+                    <li><h:outputLink value="../account/listaKont.xhtml" >${msg["menu.accounts.list"]}</h:outputLink></li>
+                    <li><h:outputLink value="../account/utworzAdministratora.xhtml" >${msg["menu.accounts.createadmin"]}</h:outputLink></li>
+                    <li><h:outputLink value="../account/utworzUzytkownika.xhtml" >${msg["menu.accounts.createuser"]}</h:outputLink></li>
+                </ul>
+            </f:subview>
+            <f:subview id="menuKonto" rendered="#{not empty request.remoteUser}">
+                <li>${accountSession.myLogin}</li>
+                <ul>
+                    <li><h:outputLink value="../account/zmienMojeHaslo.xhtml" >${msg["menu.accounts.changePassword"]}</h:outputLink></li>
+                    <li><h:outputLink value="../account/szczegolyMojegoKonta.xhtml" >${msg["menu.accounts.details"]}</h:outputLink></li>
+                    <li><h:commandLink action="#{accountSession.registerSession()}" value="${msg['menu.closeSession']}" /></li>
+                </ul>
+            </f:subview>
+            <f:subview id="menuLab" rendered="#{not empty request.remoteUser}">
+                <li>${msg["menu.lab"]}</li>
+                <ul>
+                    <li><h:outputLink value="../lab/listLab.xhtml" >${msg["menu.lab.list"]}</h:outputLink></li>
+                    <f:subview id="menuLabUser" rendered="#{request.isUserInRole('Administrator')}">
+                        <li><h:outputLink value="../lab/createLab.xhtml">${msg["menu.lab.create"]}</h:outputLink></li>
+                    </f:subview>
+                </ul>
+            </f:subview>
+            <f:subview id="menuEquipment" rendered="#{request.isUserInRole('Administrator')}">
+                <li>${msg["menu.equipment"]}</li>
+                <ul>
+                    <li><h:outputLink value="../equipment/listEquipment.xhtml" >${msg["menu.equipment.list"]}</h:outputLink></li>                    
+                </ul>
+            </f:subview>
+            <f:subview id="menuEquipmentComponents" rendered="#{not empty request.remoteUser}">
+                <li>${msg["menu.equipmentComponents"]}</li>
+                <ul>
+                    <li><h:outputLink value="../equipmentcomponent/listEquipmentComponents.xhtml" >${msg["menu.equipmentComponents.list"]}</h:outputLink></li>                    
+                    <f:subview id="menuEquipmentComponentsUser" rendered="#{request.isUserInRole('Administrator')}">
+                        <li><h:outputLink value="../equipmentcomponent/createEquipmentComponents.xhtml" >${msg["menu.equipmentComponents.create"]}</h:outputLink></li>                    
+                    </f:subview>
+                </ul>
+            </f:subview>   
+            <f:subview id="menuBooking" rendered="#{not empty request.remoteUser}">
+                <li>${msg["menu.bookingEquipment"]}</li>
+                <ul>
+                    <li><h:outputLink value="../reservation/listReservation.xhtml" >${msg["menu.bookingEquipment.list"]}</h:outputLink></li>                    
+                <f:subview id="menuEquipmentComponentsUser" rendered="#{request.isUserInRole('Uzytkownik')}">    
+                    <li><h:outputLink value="../reservation/listMyReservation.xhtml" >${msg["menu.reservation.listMy"]}</h:outputLink></li>                    
+                </f:subview>
+                </ul>
+            </f:subview>
+            <f:subview id="menuSchedule" rendered="#{not empty request.remoteUser}">
+                <li>${msg["menu.schedule"]}</li>
+                <ul>                    
+                    <li><h:outputLink value="../timetable/listBookingLab.xhtml" >${msg["reservation.lab.list"]}</h:outputLink></li>                                        
+                </ul>
+            </f:subview>
+        </ul>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:param name="pageBean" value="#{listEquipmentInLabPageBean}" />
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["action.lab.equipmentInLab"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+    <ui:define name="content">
+
+        <h:panelGrid columns="3">
+
+            <ui:include src="_templateLabView.xhtml"/>
+
+        </h:panelGrid>
+
+        <h:form id="listEquipmentInLabForm">
+            <h:messages for="listEquipmentInLab" />           
+            <h2>${msg['action.lab.equipmentInLab']}</h2>
+            <h:dataTable id="listEquipment" var="row" value="#{listEquipmentInLabPageBean.equipmentsInLabDataModel}" headerClass="table_header" rowClasses="row_odd,row_even">
+                <h:column  id="number">
+                    <f:facet name="header">${msg['equipment.stationNumber']}</f:facet>
+                    <h:outputText value="#{row.stationNumber}" />
+                </h:column>
+                <h:column id="type">
+                    <f:facet name="header">${msg['equipment.stationType']}</f:facet>
+                    <h:outputText value="#{row.stationType}" />
+                </h:column>
+                <h:column id="labNumber">
+                    <f:facet name="header">${msg['lab.number']}</f:facet>
+                    <h:outputText value="#{row.lab.number}" />
+                </h:column>
+
+                <h:column id="state">
+                    <f:facet name="header">${msg['account.state']}</f:facet>
+                    <h:panelGrid columns="1"> 
+                        <h:selectBooleanCheckbox id="active" value="#{row.conditionEquipment}" disabled="true"/>    
+                        <h:outputLabel for="active" value="${msg['account.active']}" />    
+                    </h:panelGrid>
+                </h:column>
+                <h:column id="actions">
+                    <f:facet name="header">${msg['general.actions']}</f:facet>
+                    <f:subview id="menuEquipmentComponentsAdmin" rendered="#{request.isUserInRole('Administrator')}">
+                        <h:commandButton action="#{listEquipmentInLabPageBean.activateEquipment}" value="${msg['action.activate']}" rendered="#{not row.conditionEquipment}"/>
+                        <h:commandButton action="#{listEquipmentInLabPageBean.deactivateEquipment}" value="${msg['action.deactivate']}" rendered="#{row.conditionEquipment}"/>
+                    </f:subview>
+                    <h:commandButton action="#{listEquipmentInLabPageBean.listEquipmentComponentsFromEquipment()}" value="${msg['menu.equipmentComponents']}" />
+                    <f:subview id="menuEquipmentComponentsUser" rendered="#{request.isUserInRole('Uzytkownik')}">
+                        <h:commandButton action="#{listEquipmentInLabPageBean.downloadEquipmentToCreateReservation()}" value="${msg['menu.reservation.create']}" />
+                    </f:subview>
+                    <h:commandButton action="#{listEquipmentInLabPageBean.listReservationEquipment()}" value="${msg['menu.reservation.listInEquipment']}" />
+
+                </h:column>
+            </h:dataTable>
+
+            <f:subview id="menuEquipmentComponentsUser" rendered="#{request.isUserInRole('Administrator')}">
+                <br />
+                <h:commandButton action="#{pageBean.downloadLabToCreateEquipmentIn()}" value="#{msg['menu.equipment.create']}" />
+            </f:subview>
+            <br />
+            <h:commandButton value="#{msg['action.lab.backToLabList']}" action="listLab" immediate="true" />
+
+
+
+        </h:form>    
+
+
+
+    </ui:define>
+
+
+</ui:composition>

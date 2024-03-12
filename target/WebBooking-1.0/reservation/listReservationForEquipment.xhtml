@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="pageBean" value="#{createReservationPageBean}" />
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["menu.reservation.listInEquipment"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="msgs" showDetail="true" />
+
+              <h:messages for="listEquipment" />
+              <h:dataTable id="listEquipment" var="row" value="#{listReservationEquipmentPageBean.reservationDataModel}" headerClass="table_header" rowClasses="row_odd,row_even">
+
+                <h:column id="labNumber">
+                    <f:facet name="header">${msg['lab.number']}</f:facet>
+                    <h:outputText value="#{row.equipmentReservation.lab.number}" />                     
+                </h:column>
+                <h:column id="number">
+                    <f:facet name="header">${msg['reservation.stationNumer']}</f:facet>
+                    <h:outputText value="#{row.equipmentReservation.stationNumber}" />                                           
+                </h:column>
+                <h:column id="startTime">
+                    <f:facet name="header">${msg['reservation.startTime']}</f:facet>
+                    <h:outputText value="#{row.startReservation}" >
+                        <f:convertDateTime type="date" pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputText>
+                </h:column>
+                <h:column id="stopTime">
+                    <f:facet name="header">${msg['reservation.stopTime']}</f:facet>
+                    <h:outputText value="#{row.stopReservation}" >
+                        <f:convertDateTime type="date" pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputText>
+                </h:column>  
+               
+            </h:dataTable>
+      
+            <br />
+            <h:commandButton value="#{msg['action.lab.backToEquipmentInLab']}" action="listEquipmentInLab" immediate="true" />
+              
+              
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

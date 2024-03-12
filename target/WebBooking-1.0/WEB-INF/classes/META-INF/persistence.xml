@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="Booking_PU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/Booking_RS</jta-data-source>
+    <class>com.booking.model.Account</class>
+    <class>com.booking.model.Administrator</class>
+    <class>com.booking.model.User</class>
+    <class>com.booking.model.Lab</class>
+    <class>com.booking.model.Equipment</class>
+    <class>com.booking.model.EquipmentComponents</class>
+    <class>com.booking.model.PositionReservation</class>
+    <class>com.booking.model.Reservation</class>
+    <class>com.booking.model.BookingLab</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="Booking_PU"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="Booking_PU_Serializable" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/Booking_RS_Serializable</jta-data-source>
+    <class>com.booking.model.Account</class>
+    <class>com.booking.model.Administrator</class>
+    <class>com.booking.model.User</class>
+    <class>com.booking.model.Lab</class>
+    <class>com.booking.model.Equipment</class>
+    <class>com.booking.model.EquipmentComponents</class>
+    <class>com.booking.model.PositionReservation</class>
+    <class>com.booking.model.Reservation</class>
+    <class>com.booking.model.BookingLab</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="Booking_PU_Serializable"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <locale-config>
+            <default-locale>pl</default-locale>
+            <supported-locale>pl</supported-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>i18n.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>i18n.napisy</base-name>
+            <var>napisy</var>
+        </resource-bundle>
+        <message-bundle>
+            i18n.jsf_messages
+        </message-bundle>
+    </application>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login/formLogin.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancelAction</from-outcome>
+            <to-view-id>/main/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>confirmRegister</from-outcome>
+            <to-view-id>/account/rejestrujUzytkownikaPotwierdz.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>editAccount</from-outcome>
+            <to-view-id>/account/edytujKonto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>changePassword</from-outcome>
+            <to-view-id>/account/zmienHasloKonta.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>listAccounts</from-outcome>
+            <to-view-id>/account/listaKont.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listLab</from-outcome>
+            <to-view-id>/lab/listLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editLab</from-outcome>
+            <to-view-id>/lab/editLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>deletetLab</from-outcome>
+            <to-view-id>/lab/deleteLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listEquipment</from-outcome>
+            <to-view-id>/equipment/listEquipment.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>listEquipmentWithEquipmentComponents</from-outcome>
+            <to-view-id>/equipment/listEquipmentWithEquipmentComponents.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>    
+        <navigation-case>
+            <from-outcome>listEquipmentInLab</from-outcome>
+            <to-view-id>/lab/listEquipmentInLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>          
+        <navigation-case>
+            <from-outcome>createEquipmentInLab</from-outcome>
+            <to-view-id>/equipment/createEquipmentInLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>         
+        <navigation-case>
+            <from-outcome>listEquipmentComponents</from-outcome>
+            <to-view-id>/equipmentcomponent/listEquipmentComponents.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>   
+        <navigation-case>
+            <from-outcome>listEquipmentComponentsFromEquipment</from-outcome>
+            <to-view-id>/equipmentcomponent/listEquipmentComponentsFromEquipment.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createEquipmentReservation</from-outcome>
+            <to-view-id>/reservation/createEquipmentReservation.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listEquipmentReservation</from-outcome>
+            <to-view-id>/reservation/listEquipmentReservation.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>         
+        <navigation-case>
+            <from-outcome>listReservationForEquipment</from-outcome>
+            <to-view-id>/reservation/listReservationForEquipment.xhtml</to-view-id>
+            <redirect />
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>listBookingInLab</from-outcome>
+            <to-view-id>/timetable/listBookingInLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createBookingLab</from-outcome>
+            <to-view-id>/timetable/createBookingLab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/common/sukces.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>  
+    </navigation-rule>    
+</faces-config>

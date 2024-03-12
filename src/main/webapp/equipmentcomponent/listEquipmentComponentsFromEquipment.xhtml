@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:param name="pageBean" value="#{listEquipmentComponentsFromEquipmentPageBean}" />
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["menu.equipmentComponent.list.equipment"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+
+    <ui:define name="content">
+        <h:panelGrid columns="3">
+
+            <ui:include src="_templateLabView.xhtml"/>
+
+        </h:panelGrid>
+
+        <h:panelGrid columns="3">
+
+            <ui:include src="_templateEquipmentView.xhtml"/>
+
+        </h:panelGrid>
+        <h:form id="listEquipmentForm">
+            <!--<h:messages for="listEquipmentComponents" />-->
+            <h:dataTable id="listEquipmentComponents" var="row" value="#{listEquipmentComponentsFromEquipmentPageBean.equipmentComponentsInEquipmentDataModel}" headerClass="table_header" rowClasses="row_odd,row_even">
+
+                <h:column id="number">
+                    <f:facet name="header">${msg['equipment.stationNumber']}</f:facet>
+                    <h:outputText value="#{row.typeComponent}" />
+                </h:column>
+                <h:column id="type">
+                    <f:facet name="header">${msg['equipment.stationType']}</f:facet>
+                    <h:outputText value="#{row.nameComponent}" />
+                </h:column>
+                <h:column id="actions" rendered="#{request.isUserInRole('Administrator')}">
+                    <f:facet name="header">${msg['general.actions']}</f:facet>
+                    <h:commandButton action="#{listEquipmentComponentsFromEquipmentPageBean.removeEquipmentComponentFromEquipment()}" value="${msg['action.delete']}"/>                   
+                </h:column>
+
+            </h:dataTable>           
+            <br/>
+            <br/>
+            <br/>            
+            <h:dataTable id="listAllEquipmentComponents" var="row" value="#{listEquipmentComponentsFromEquipmentPageBean.allEquipmentComponentsDataModel}" headerClass="table_header" rowClasses="row_odd,row_even"  rendered="#{request.isUserInRole('Administrator')}">
+
+                <h:column id="number1">
+                    <f:facet name="header">${msg['equipment.stationNumber']}</f:facet>
+                    <h:outputText value="#{row.typeComponent}" />
+                </h:column>
+                <h:column id="type1">
+                    <f:facet name="header">${msg['equipment.stationType']}</f:facet>
+                    <h:outputText value="#{row.nameComponent}" />
+                </h:column>
+
+                <h:column id="actions1">
+                    <f:facet name="header">${msg['general.actions']}</f:facet>
+                    <h:commandButton action="#{listEquipmentComponentsFromEquipmentPageBean.addEquipmentComponents()}" value="${msg['action.add']}"/>                   
+                </h:column>
+
+            </h:dataTable>               
+        <br />
+        <h:commandButton value="#{msg['action.lab.backToEquipmentInLab']}" action="listEquipmentInLab" immediate="true" />
+        </h:form>
+
+        <h:messages/>
+
+
+    </ui:define>
+
+</ui:composition>

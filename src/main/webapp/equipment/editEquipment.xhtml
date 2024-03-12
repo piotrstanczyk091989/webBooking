@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:param name="pageBean" value="#{editEquipmentPageBean}" />
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["menu.equipment.edit"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="3">
+                
+                <ui:include src="_templateEquipmentEdit.xhtml"/>
+
+            </h:panelGrid>
+            <br />
+
+            <h:commandButton action="#{pageBean.saveEquipment()}" value="#{msg['action.edit']}" />
+            <br />
+            <h:commandButton value="#{msg['action.cancel']}" action="listEquipment" immediate="true" />
+
+              
+             <br/>
+            <h:messages for="listaAllEquipmentComponents" />
+            <h:dataTable id="listaAllEquipmentComponents" var="row" value="#{editEquipmentPageBean.allEquipmentComponentsesDataModel}" headerClass="table_header" rowClasses="row_odd,row_even">
+
+                <h:column id="numberAll">
+                    <f:facet name="header">${msg['equipment.stationNumber']}</f:facet>
+                    <h:outputText value="#{row.typeComponent}" />
+                </h:column>
+                <h:column id="typeAll">
+                    <f:facet name="header">${msg['equipment.stationType']}</f:facet>
+                    <h:outputText value="#{row.nameComponent}" />
+                </h:column>
+                 <h:column id="actions">
+                    <f:facet name="header">${msg['general.actions']}</f:facet>                    
+                    <h:commandButton action="#{editEquipmentPageBean.addEquipmentComponentToEquipment()}" value="${msg['menu.reservation.listInEquipment']}" />
+
+                </h:column>
+                
+                
+            </h:dataTable>
+            
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

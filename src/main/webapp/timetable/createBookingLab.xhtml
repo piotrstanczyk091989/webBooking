@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="pageBean" value="#{createBookingLabPageBean}" />
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["menu.bookingLab"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <h:panelGrid columns="3">
+
+                <ui:include src="_templateLabView.xhtml"/>
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="3">
+                <br />
+                <h:outputLabel value="#{msg['subject.name']}" for="number" />
+                <h:inputText id="number" value="#{createBookingLabPageBean.bookingLab.description}" title="#{msg['account.name']}" required="true" />
+
+            </h:panelGrid>    
+                
+            <p:growl id="msgs" showDetail="true" />
+
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <p:outputLabel for="datetime" value="${msg['reservation.startTime']}" />
+                <p:calendar id="datetime" value="#{createBookingLabPageBean.bookingLab.startBookingLab}" pattern="MM/dd/yyyy HH:mm" />
+
+                <p:outputLabel for="datetime" value="${msg['reservation.stopTime']}" />
+                <p:calendar id="datetime1" value="#{createBookingLabPageBean.bookingLab.stopBookingLab}" pattern="MM/dd/yyyy HH:mm" />
+            </h:panelGrid>
+
+            <p:commandButton value="${msg['action.booking']}" update="msgs" action="#{createBookingLabPageBean.createBookingInLab()}" icon="ui-icon-check" />
+
+            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                <p:panelGrid id="display" columns="2" columnClasses="label,value">
+
+                    <h:outputText value="Datetime:" />
+                    <h:outputText value="#{createBookingLabPageBean.bookingLab.startBookingLab}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+                    </h:outputText>
+
+                    <h:outputText value="Datetime:" />
+                    <h:outputText value="#{createBookingLabPageBean.bookingLab.stopBookingLab}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+                    </h:outputText>
+                </p:panelGrid>
+            </p:dialog>
+
+            <br />
+            <br />
+            <h:commandButton value="#{msg['action.timetable.backToListBookingLab']}" action="listBookingInLab" immediate="true" />
+            
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

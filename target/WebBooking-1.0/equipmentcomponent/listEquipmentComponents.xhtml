@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/MainTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="top">
+        <p>${msg["main.page"]}/${msg["menu.equipmentComponents.list"]}</p>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="../templates/menu.xhtml" />
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="listEquipmentComponentForm">
+            <h:messages for="listEquipment" />
+            <h:panelGrid columns="3">
+                <h:outputLabel for="matchLogin" value="#{msg['equipmentComponent.matchByTypeComponent']}"/><h:inputText id="matchLogin" value="#{listEquipmentComponentsPageBean.searchTypeComponent}" /><h:commandButton value="#{msg['action.refresh']}" action="#{listEquipmentComponentsPageBean.refresh()}" />
+                <h:outputLabel for="matchName" value="#{msg['equipmentComponent.matchByNameComponent']}"/><h:inputText id="matchName" value="#{listEquipmentComponentsPageBean.searchNameComponent}" /><h:commandButton value="#{msg['action.reset']}" action="#{listEquipmentComponentsPageBean.clean()}" />            
+            </h:panelGrid>
+
+            <h:dataTable id="listEquipmentComponent" var="row" value="#{listEquipmentComponentsPageBean.equipmentComponetsDataModel}" headerClass="table_header" rowClasses="row_odd,row_even">
+
+                <h:column id="typeComponent">
+                    <f:facet name="header">${msg['equipmentComponent.typeComponent']}</f:facet>
+                    <h:outputText value="#{row.typeComponent}" />
+                </h:column>
+                <h:column id="nameComponent">
+                    <f:facet name="header">${msg['equipmentComponent.nameComponent']}</f:facet>
+                    <h:outputText value="#{row.nameComponent}" />
+                </h:column>        
+                <h:column id="actions">
+                    <f:facet name="header">${msg['general.actions']}</f:facet>
+                    <f:subview id="actionsAdmin" rendered="#{request.isUserInRole('Administrator')}">
+                        <h:commandButton action="#{listEquipmentComponentsPageBean.editEquipmentComponents()}" value="${msg['action.edit']}"/>
+                        <h:commandButton action="#{listEquipmentComponentsPageBean.deleteEquipmentComponents()}" value="${msg['action.delete']}"/>
+                    </f:subview>                    
+                    <h:commandButton action="#{listEquipmentComponentsPageBean.listEquipmentWithComponet()}" value="${msg['menu.equipment.list.withEquipmentcomponent']}"/>                   
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
